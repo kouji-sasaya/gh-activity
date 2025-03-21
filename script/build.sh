@@ -1,3 +1,11 @@
 #!/usr/bin/env bash
-#mv "target/${TARGET}/release/gh-activity" "./dist/${ARTIFACT}"
-mv ./gh-activity ./dist/${ARTIFACT}
+
+if [ ${ARTIFACT} = "linux-amd64" ]; then
+  mv ./gh-activity ./dist/
+elif [ ${ARTIFACT} = "linux-arm64" ]; then
+  mv ./gh-activity ./dist/
+elif [ ${ARTIFACT} = "windows-amd64" ]; then
+  mv ./gh-activity.bat ./dist/
+elif [ ${ARTIFACT} = "windows-arm64" ]; then
+  mv ./gh-activity.bat ./dist/
+fi
