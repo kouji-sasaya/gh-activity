@@ -1,3 +1,3 @@
 fn main() {
-    println!("Hello, rust programming language!");
+    println!("Hello, workd in Rust!");
 }

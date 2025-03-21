@@ -8,10 +8,9 @@ endif()
 # Set to PROJECT_VERSION
 project(gh-mix VERSION ${VERSION})
 
-#add_subdirectory(gh-mix)
-#add_subdirectory(gh-mix-sh)
 add_subdirectory(gh-activity-c)
 add_subdirectory(gh-activity-rust)
+add_subdirectory(gh-activity-sh)
 #add_subdirectory(gh-mix-cpp)
 
 # if Linux or MacOS
