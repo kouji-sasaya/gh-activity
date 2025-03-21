@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
-
+set -x
 BASENAME=$(basename $0)
-DIRNAME=$(dirname $(basename $0))
+DIRNAME=$(dirname $0)
 
 echo "初回起動時には、自動でインストールプログラムが実行します。"
 echo "gh extension を実行すると、インストールプログラム兼mainプログラムの ${BASENAME} が実行されます。"
@@ -21,14 +21,16 @@ echo "- gh activity cpp  : gh-activity-cppを実行"
 echo "- gh activity rust : gh-activity-rustを実行"
 echo "- gh activity sh   : gh-activity-shを実行"
 
-exit
-
+echo DIRNAME=${DIRNAME}
 # ex: 1.0.0
 VERSION=$(cat ${DIRNAME}/manifest.yml | grep "tag" | awk '{print $2}')
 # ex: linux-amd64
-ARTIFACT="linx-amd64"
+ARTIFACT="linux-amd64"
 
-ASSET_URL="https://github.com/kouji-sasaya/gh-activity/releases/download/${VERSION}/gh-activity_${VERSION}_${ARTIFACT}.tar.gz
+ASSET_URL="https://github.com/kouji-sasaya/gh-activity/releases/download/${VERSION}/gh-activity_${VERSION}_${ARTIFACT}.tar.gz"
 
-curl -L "${ASSET_URL}" -o "${DIRNAME}/gh-mix.tar.gz"
+echo curl -L "${ASSET_URL}" -o "${DIRNAME}/gh-activity.tar.gz"
 
+cd ${DIRNAME}
+tar xvf gh-activity.tar.gz
+cd -
