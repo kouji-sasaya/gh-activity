@@ -1,4 +1,4 @@
-project(gh-mix-rust)
+project(gh-activity-rust)
 
 # Set the build directory for Cargo
 set(RUST_BUILD_DIR ${CMAKE_BINARY_DIR}/${PROJECT_NAME})
