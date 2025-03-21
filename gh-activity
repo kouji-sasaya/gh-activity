@@ -29,7 +29,7 @@ ARTIFACT="linux-amd64"
 
 ASSET_URL="https://github.com/kouji-sasaya/gh-activity/releases/download/${VERSION}/gh-activity_${VERSION}_${ARTIFACT}.tar.gz"
 
-echo curl -L "${ASSET_URL}" -o "${DIRNAME}/gh-activity.tar.gz"
+curl -L "${ASSET_URL}" -o "${DIRNAME}/gh-activity.tar.gz"
 
 cd ${DIRNAME}
 tar xvf gh-activity.tar.gz
