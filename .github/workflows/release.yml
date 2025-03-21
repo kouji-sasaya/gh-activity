@@ -50,3 +50,14 @@ jobs:
         env:
           TARGET: ${{ matrix.target }}
           ARTIFACT: ${{ matrix.artifact }}
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          # ex: build/gh-actibity-1.0.0-linux-amd64.tar.gz
+          asset_path: build/gh-activity-${{ github.ref_name }}-${{ matrix.artifact }}.tar.gz
+          asset_name: gh-activity_${{ github.ref_name }}_${{ matrix.artifact }}.tar.gz
+          asset_content_type: application/gzip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

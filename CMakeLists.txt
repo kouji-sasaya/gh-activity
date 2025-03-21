@@ -10,7 +10,7 @@ project(gh-mix VERSION ${VERSION})
 
 #add_subdirectory(gh-mix)
 #add_subdirectory(gh-mix-sh)
-add_subdirectory(gh-mix-c)
+add_subdirectory(gh-activity-c)
 #add_subdirectory(gh-mix-cpp)
 #add_subdirectory(gh-mix-rust)
 
@@ -23,7 +23,7 @@ elseif(WIN32)
 endif()
 
 set(CPACK_INCLUDE_TOPLEVEL_DIRECTORY OFF)
-set(CPACK_PACKAGE_NAME "gh-mix")
+set(CPACK_PACKAGE_NAME "gh-activity")
 set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
 set(CPACK_PACKAGE_CONTACT "kouji.sasaya@gmail.com")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Multi pratform and Cross programing language")
