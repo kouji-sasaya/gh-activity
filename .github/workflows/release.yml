@@ -12,29 +12,26 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: macos-latest
-            target: x86_64-apple-darwin
-            artifact: darwin-amd64
-          - os: macos-latest
-            target: aarch64-apple-darwin
-            artifact: darwin-arm64
-          - os: windows-latest
-            target: x86_64-pc-windows-msvc
-            artifact: windows-amd64.exe
-          - os: windows-latest
-            target: aarch64-pc-windows-msvc
-            artifact: windows-arm64.exe
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
             artifact: linux-amd64
-          - os: ubuntu-latest
-            target: aarch64-unknown-linux-gnu
-            artifact: linux-arm64
 
     runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v2
+        with:
+          cmake-version: '3.28.x'
+
+      - name: Configure the project
+        run: cmake -S . -B build -DVERSION=${{ github.ref_name }}
+
+      - name: Build the project
+        run: cmake --build build --config Release
+
       - uses: actions-rs/toolchain@v1
         with:
           toolchain: stable
