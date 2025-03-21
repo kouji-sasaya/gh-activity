@@ -11,8 +11,8 @@ project(gh-mix VERSION ${VERSION})
 #add_subdirectory(gh-mix)
 #add_subdirectory(gh-mix-sh)
 add_subdirectory(gh-activity-c)
+add_subdirectory(gh-activity-rust)
 #add_subdirectory(gh-mix-cpp)
-#add_subdirectory(gh-mix-rust)
 
 # if Linux or MacOS
 if(UNIX)
