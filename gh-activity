@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-set -x
+
 BASENAME=$(basename $0)
 DIRNAME=$(dirname $0)
 
@@ -21,6 +21,35 @@ echo "- gh activity cpp  : gh-activity-cppを実行"
 echo "- gh activity rust : gh-activity-rustを実行"
 echo "- gh activity sh   : gh-activity-shを実行"
 
+echo "--------------------------------------"
+
+echo gh extensionが自動生成すると思われる、manifest.yml ファイル
+echo バージョン情報を取得できるので、バージョンコントールできます。
+echo "${DIRNAME}/manifest.yml を表示します。"
+cat ${DIRNAME}/manifest.yml
+
+echo "--------------------------------------"
+echo "uname -s で、OS情報を表示します。"
+echo "linux : Linux"
+echo "windos : ???"
+echo "mac : ???"
+echo "--------------------------------------"
+uname -s
+echo "--------------------------------------"
+echo "uname -m で、アーキテクチャ情報を表示します。"
+echo "wSL2 : x86_64"
+echo "mac : ???"
+echo "windows : ???"
+echo "--------------------------------------"
+uname -m
+
+echo "--------------------------------------"
+echo "uname -i で、ハードウェア情報を表示します。"
+echo "WSL2 : x86_64"
+echo "windows : ???"
+echo "--------------------------------------"
+uname -i
+
 echo DIRNAME=${DIRNAME}
 # ex: 1.0.0
 VERSION=$(cat ${DIRNAME}/manifest.yml | grep "tag" | awk '{print $2}')
@@ -29,8 +58,13 @@ ARTIFACT="linux-amd64"
 
 ASSET_URL="https://github.com/kouji-sasaya/gh-activity/releases/download/${VERSION}/gh-activity_${VERSION}_${ARTIFACT}.tar.gz"
 
-curl -L "${ASSET_URL}" -o "${DIRNAME}/gh-activity.tar.gz"
+curl --silent -L "${ASSET_URL}" -o "${DIRNAME}/gh-activity.tar.gz"
 
 cd ${DIRNAME}
-tar xvf gh-activity.tar.gz
+tar xf gh-activity.tar.gz
 cd -
+
+if [ "${1}" = "c" ]; then
+  ${DIRNAME}/bin/gh-activity-c $@
+  exit
+fi
