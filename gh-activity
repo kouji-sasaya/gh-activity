@@ -4,7 +4,10 @@ set -e
 BASENAME=$(basename $0)
 DIRNAME=$(dirname $0)
 
-echo "初回起動時には、自動でインストールプログラムが実行します。"
+
+echo "--------------------------------------"
+echo "初回またはバージョン変更時には、自動でインストールプログラムが実行します。"
+echo "manifest.yml に記載されたバージョン情報で判断しています。"
 echo "gh extension を実行すると、インストールプログラム兼mainプログラムの ${BASENAME} が実行されます。"
 echo "- gh-activity      : シェルスクリプトで記述されたインストールプログラム兼mainプログラム"
 echo "${BASENAME} は、シェルスプリプトで、インストールされるプログラムは、以下のプログラムです。"
@@ -12,21 +15,38 @@ echo "- gh-activity-c    : C言語で作成されたプログラム"
 echo "- gh-activity-cpp  : C++言語で作成されたプログラム"
 echo "- gh-activity-rust : Rust言語で作成されたプログラム"
 echo "- gh-activity-sh   : Shell言語で作成されたプログラム"
-
-echo "インストールは、アセットから、ダウンロードして、インストールします。"
-echo "インストール先は、ホームディレクトリのgh-activityにインストールされます。"
-echo "インストールされたプログラムは、gh activity経由で実行されます。"
-echo "- gh activity c    : gh-activity-cを実行"
-echo "- gh activity cpp  : gh-activity-cppを実行"
-echo "- gh activity rust : gh-activity-rustを実行"
-echo "- gh activity sh   : gh-activity-shを実行"
-
 echo "--------------------------------------"
+echo " manifest.ymlの内容を確認してください。"
+echo "--------------------------------------"
+cat ${DIRNAME}/manifest.yml
 
+echo "インストールは、リポジトリのreelaseにのassetら、ダウンロードして、インストールされようです。"
+echo "中身は、シェルスクリプト１つで、gh-activityで構成管理しているシェルスクリプトです。"
+echo "assetのURLは、以下のURLです。"
+echo "これは、おそらく、gh extensionのルールだと思われます。まだ確信はありません。"
+echo "- https://github.com/kouji-sasaya/gh-activity/releases/download/0.0.15/linux-amd64 : linux-amd64"
+echo "- https://github.com/kouji-sasaya/gh-activity/releases/download/0.0.15/linux-arm64 : linux-arm64"
+echo "- https://github.com/kouji-sasaya/gh-activity/releases/download/0.0.15/windows-amd64 : windows-amd64"
+echo "- https://github.com/kouji-sasaya/gh-activity/releases/download/0.0.15/windows-arm64 : windows-arm64"
+echo "インストール先は、.local/share/gh/extensions/gh-activity/に、インストールされます。"
+echo "--------------------------------------"
 echo gh extensionが自動生成すると思われる、manifest.yml ファイル
 echo バージョン情報を取得できるので、バージョンコントールできます。
 echo "${DIRNAME}/manifest.yml を表示します。"
+echo "manifest.ymlの内容を確認してください。"
+echo "--------------------------------------"
 cat ${DIRNAME}/manifest.yml
+echo "--------------------------------------"
+
+echo "--------------------------------------"
+echo "インストールされたプログラムは、gh activity経由で実行されます。"
+echo "--------------------------------------"
+echo "- gh activity c    : <install dir>/bin/gh-activity-cを実行します。"
+echo "- gh activity cpp  : <install dir>/bin/gh-activity-cppを実行します。"
+echo "- gh activity rust : <install dir>/bin/gh-activity-rustを実行します。"
+echo "- gh activity sh   : <install dir>/bin/gh-activity-shを実行します。"
+echo "--------------------------------------"
+
 
 echo "--------------------------------------"
 echo "uname -s で、OS情報を表示します。"
@@ -65,6 +85,11 @@ tar xf gh-activity.tar.gz
 cd -
 
 if [ "${1}" = "c" ]; then
+  ${DIRNAME}/bin/gh-activity-c $@
+  exit
+fi
+
+if [ "${1}" = "rust" ]; then
   ${DIRNAME}/bin/gh-activity-c $@
   exit
 fi
